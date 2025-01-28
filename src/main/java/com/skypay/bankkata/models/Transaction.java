@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 
@@ -15,6 +16,6 @@ import java.util.Date;
 public class Transaction {
     private int amount;
     private TypeTransaction typeTransaction;
-    private Date date;
+    private ZonedDateTime date;
     private int balance;
  }
