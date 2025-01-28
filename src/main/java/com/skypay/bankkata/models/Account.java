@@ -34,7 +34,7 @@ public class Account implements AccountService {
      */
     @Override
     public void printStatement() {
-        System.out.println("Date            || Amount      || Balance");
+        System.out.println("Date          || Amount   || Balance");
         System.out.println("-------------------------------------------");
         transactions
                 .stream()
@@ -50,7 +50,7 @@ public class Account implements AccountService {
                         amountTransaction = "-" + transaction.getAmount();
                     }
 
-                    System.out.printf("%-15s || %-12s || %-10d%n",dateTransaction , amountTransaction, transaction.getBalance());
+                    System.out.println(dateTransaction+"    ||  "+ amountTransaction+"    ||  "+ transaction.getBalance());
                 });
     }
 
