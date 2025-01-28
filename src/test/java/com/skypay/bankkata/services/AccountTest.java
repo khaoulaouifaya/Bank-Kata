@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 public class AccountTest {
     @Mock
     private Account account;
@@ -20,17 +23,28 @@ public class AccountTest {
 
 
     /**
-     * Runs test cases to validate the functionality of the Account class.
-     */
+     * This test ensures that the account statement contains the expected transactions.
+     * */
     @Test
     void testPrintStatement() {
         account.deposit(1000);
         account.deposit(2000);
         account.withdraw(500);
 
-        assertEquals(3, account.getTransactions().size());
-        assertEquals(2500, account.getBalance());
-
+        // Check that the output matches the expected output.
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
         account.printStatement();
+        System.setOut(originalOut);
+
+        String expectedOutput =
+                "Date          || Amount   || Balance" + System.lineSeparator() +
+                        "-------------------------------------------" + System.lineSeparator() +
+                        "29/01/2025    ||  -500    ||  2500" + System.lineSeparator() +
+                        "27/01/2025    ||  1000    ||  1000" + System.lineSeparator() +
+                        "27/01/2025    ||  2000    ||  3000" + System.lineSeparator();
+
+        assertEquals(expectedOutput, outputStream.toString());
     }
 }
